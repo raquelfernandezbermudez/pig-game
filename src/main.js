@@ -26,7 +26,7 @@ document.querySelector("#app").innerHTML = `
     </main>
 
 `;
-
+//
 // variables de estado en JS y selectores DOMXS
 
 // activePlayer -> variable de estado en JS
