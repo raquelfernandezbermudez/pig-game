@@ -113,3 +113,30 @@ function resetCurrentScore() {
   if (activePlayer === 0) currentScore0.textContent = currentScore;
   else currentScore1.textContent = currentScore;
 }
+
+
+btnHold.addEventListener("click", hold);
+
+function hold() {
+  if (activePlayer === 0) {
+    let newScore = parseInt(score0.textContent) + currentScore;
+    score0.textContent = newScore;
+    if (score0.textContent >=20){
+      btnHold.disabled = true;
+      btnRoll.disabled = true;
+    }else{
+      switchPlayer();
+    }
+  } else {
+    let newScore = parseInt(score1.textContent) + currentScore;
+    score1.textContent = newScore;
+    if (score1.textContent >=20){
+      btnHold.disabled = true;
+      btnRoll.disabled = true;
+    }else{
+      switchPlayer();
+    }
+  }
+  
+
+}
