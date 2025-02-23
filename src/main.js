@@ -128,7 +128,7 @@ function hold() {
     score1.textContent = newScore;
   }
 
-  if (newScore >= 20) {
+  if (newScore >= 10) {
     const winMessage = document.getElementById("winMessage");
     winMessage.textContent = `¡El Jugador ${activePlayer + 1} ha ganado!`;
     winMessage.style.display = "block"; // Mostrar mensaje
@@ -137,4 +137,16 @@ function hold() {
   } else {
     switchPlayer();
   }
+}
+
+btnNew.addEventListener("click", newGame);
+
+function newGame() {
+  initData();
+  sectionPlayer0.classList.add("player--active");
+  sectionPlayer1.classList.remove("player--active");
+  btnHold.disabled = false;
+  btnRoll.disabled = false;
+  document.getElementById("winMessage").style.display = "none";
+
 }
