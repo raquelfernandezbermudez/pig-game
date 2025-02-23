@@ -174,3 +174,19 @@ button:disabled {
   opacity: 0.5; 
   cursor: not-allowed;
 }
+
+#winMessage {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #c7365f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: none; /* Oculto por defecto */
+}

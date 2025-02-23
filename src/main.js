@@ -23,6 +23,8 @@ document.querySelector("#app").innerHTML = `
       <button class="btn btn--new">🔄 New game</button>
       <button class="btn btn--roll">🎲 Roll dice</button>
       <button class="btn btn--hold">📥 Hold</button>
+
+      <div id="winMessage" class="hidden"></div>
     </main>
 
 `;
@@ -118,25 +120,21 @@ function resetCurrentScore() {
 btnHold.addEventListener("click", hold);
 
 function hold() {
-  if (activePlayer === 0) {
-    let newScore = parseInt(score0.textContent) + currentScore;
-    score0.textContent = newScore;
-    if (score0.textContent >=20){
-      btnHold.disabled = true;
-      btnRoll.disabled = true;
-    }else{
-      switchPlayer();
-    }
-  } else {
-    let newScore = parseInt(score1.textContent) + currentScore;
-    score1.textContent = newScore;
-    if (score1.textContent >=20){
-      btnHold.disabled = true;
-      btnRoll.disabled = true;
-    }else{
-      switchPlayer();
-    }
-  }
+  let newScore = parseInt(activePlayer === 0 ? score0.textContent : score1.textContent) + currentScore;
   
+  if (activePlayer === 0) {
+    score0.textContent = newScore;
+  } else {
+    score1.textContent = newScore;
+  }
 
+  if (newScore >= 20) {
+    const winMessage = document.getElementById("winMessage");
+    winMessage.textContent = `¡El Jugador ${activePlayer + 1} ha ganado!`;
+    winMessage.style.display = "block"; // Mostrar mensaje
+    btnHold.disabled = true;
+    btnRoll.disabled = true;
+  } else {
+    switchPlayer();
+  }
 }
