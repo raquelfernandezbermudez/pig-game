@@ -116,13 +116,14 @@ function resetCurrentScore() {
   else currentScore1.textContent = currentScore;
 }
 
-
 btnHold.addEventListener("click", hold);
 
 function hold() {
   //Sumar el currentScore al score del jugador activo
-  let newScore = parseInt(activePlayer === 0 ? score0.textContent : score1.textContent) + currentScore;
-  
+  let newScore =
+    parseInt(activePlayer === 0 ? score0.textContent : score1.textContent) +
+    currentScore;
+
   //Actualizar el score del jugador activo
   if (activePlayer === 0) {
     score0.textContent = newScore;
@@ -137,6 +138,14 @@ function hold() {
     winMessage.style.display = "block"; // Mostrar mensaje
     btnHold.disabled = true;
     btnRoll.disabled = true;
+    // Añadir clase de ganador al jugador actual
+    if (activePlayer === 0) {
+      sectionPlayer0.classList.add("player--winner");
+      sectionPlayer0.classList.remove("player--active");
+    } else {
+      sectionPlayer1.classList.add("player--winner");
+      sectionPlayer1.classList.remove("player--active");
+    }
   } else {
     switchPlayer();
   }
@@ -150,10 +159,14 @@ function newGame() {
   //Volver a poner el jugador 1 como activo
   sectionPlayer0.classList.add("player--active");
   sectionPlayer1.classList.remove("player--active");
+
+  // Quitar la clase de ganador
+  sectionPlayer0.classList.remove("player--winner");
+  sectionPlayer1.classList.remove("player--winner");
+
   //Volver a activar los botones
   btnHold.disabled = false;
   btnRoll.disabled = false;
   //Ocultar el mensaje de ganador
   document.getElementById("winMessage").style.display = "none";
-
 }
