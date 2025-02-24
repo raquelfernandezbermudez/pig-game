@@ -120,15 +120,18 @@ function resetCurrentScore() {
 btnHold.addEventListener("click", hold);
 
 function hold() {
+  //Sumar el currentScore al score del jugador activo
   let newScore = parseInt(activePlayer === 0 ? score0.textContent : score1.textContent) + currentScore;
   
+  //Actualizar el score del jugador activo
   if (activePlayer === 0) {
     score0.textContent = newScore;
   } else {
     score1.textContent = newScore;
   }
 
-  if (newScore >= 10) {
+  //Sacar el mensaje de ganador si el score es mayor o igual a 100 y desactivar los botones
+  if (newScore >= 100) {
     const winMessage = document.getElementById("winMessage");
     winMessage.textContent = `¡El Jugador ${activePlayer + 1} ha ganado!`;
     winMessage.style.display = "block"; // Mostrar mensaje
@@ -142,11 +145,15 @@ function hold() {
 btnNew.addEventListener("click", newGame);
 
 function newGame() {
+  //Volver a reiniciar los datos
   initData();
+  //Volver a poner el jugador 1 como activo
   sectionPlayer0.classList.add("player--active");
   sectionPlayer1.classList.remove("player--active");
+  //Volver a activar los botones
   btnHold.disabled = false;
   btnRoll.disabled = false;
+  //Ocultar el mensaje de ganador
   document.getElementById("winMessage").style.display = "none";
 
 }
