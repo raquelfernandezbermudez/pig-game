@@ -57,7 +57,6 @@ const initData = () => {
   activePlayer = 0;
 
   // init DOM elements
-
   imgDice.classList.add("hidden");
   score0.textContent = 0;
   score1.textContent = 0;
@@ -75,23 +74,24 @@ function throwDice() {
   // mostrar el número
   imgDice.classList.remove("hidden");
   imgDice.src = `dice-${diceNumber}.png`;
-  // si no es 1....
+  // Si el dado no es 1, actualizar puntuación actual; si no cambiar de jugador
   if (diceNumber !== 1) updateCurrentScore(diceNumber);
   else switchPlayer();
 }
 
 function updateCurrentScore(diceNumber) {
   currentScore += diceNumber; // current = current + diceNumber
+  // Actualiza la pantalla de puntuación del jugador correcto
   if (activePlayer === 0) currentScore0.textContent = currentScore;
   else currentScore1.textContent = currentScore;
 }
 
 function switchPlayer() {
   {
-    // currentScore se tiene que resetear a 0 y también en el DOM!!!
+    // Reinicia la puntuación actual a 0
     resetCurrentScore();
 
-    // css cambiará
+    // css cambiará, alterna el jugador activo
 
     sectionPlayer0.classList.toggle("player--active");
     sectionPlayer1.classList.toggle("player--active");
@@ -105,13 +105,14 @@ function switchPlayer() {
     //   sectionPlayer0.classList.add("player--active");
     // }
 
-    // activePlayer cambia de 0 a 1 ó de 1 a 0
+    // Cambiar jugador activo (de 0 a 1 o de 1 a 0)
     activePlayer = activePlayer === 0 ? 1 : 0;
   }
 }
 
 function resetCurrentScore() {
   currentScore = 0; // current = current + diceNumber
+  // Actualizar la pantalla de puntuación del jugador correcto
   if (activePlayer === 0) currentScore0.textContent = currentScore;
   else currentScore1.textContent = currentScore;
 }
@@ -119,26 +120,27 @@ function resetCurrentScore() {
 btnHold.addEventListener("click", hold);
 
 function hold() {
-  //Sumar el currentScore al score del jugador activo
+  //Suma el currentScore al score del jugador activo
   let newScore =
     parseInt(activePlayer === 0 ? score0.textContent : score1.textContent) +
     currentScore;
 
-  //Actualizar el score del jugador activo
+  //Actualiza el score del jugador activo
   if (activePlayer === 0) {
     score0.textContent = newScore;
   } else {
     score1.textContent = newScore;
   }
 
-  //Sacar el mensaje de ganador si el score es mayor o igual a 100 y desactivar los botones
+  //Saca el mensaje de ganador si el score es mayor o igual a 100 y desactiva los botones
   if (newScore >= 100) {
     const winMessage = document.getElementById("winMessage");
     winMessage.textContent = `¡El Jugador ${activePlayer + 1} ha ganado!`;
     winMessage.style.display = "block"; // Mostrar mensaje
+    //Desactiva botones del juego
     btnHold.disabled = true;
     btnRoll.disabled = true;
-    // Añadir clase de ganador al jugador actual
+    // Añade clase de ganador al jugador actual
     if (activePlayer === 0) {
       sectionPlayer0.classList.add("player--winner");
       sectionPlayer0.classList.remove("player--active");
@@ -154,19 +156,19 @@ function hold() {
 btnNew.addEventListener("click", newGame);
 
 function newGame() {
-  //Volver a reiniciar los datos
+  // Reinicia los datos del juego
   initData();
-  //Volver a poner el jugador 1 como activo
+  //Vuelve a poner el jugador 1 como activo
   sectionPlayer0.classList.add("player--active");
   sectionPlayer1.classList.remove("player--active");
 
-  // Quitar la clase de ganador
+  // Quita la clase de ganador
   sectionPlayer0.classList.remove("player--winner");
   sectionPlayer1.classList.remove("player--winner");
 
-  //Volver a activar los botones
+  //Vuelve a activar los botones
   btnHold.disabled = false;
   btnRoll.disabled = false;
-  //Ocultar el mensaje de ganador
+  //Oculta el mensaje de ganador
   document.getElementById("winMessage").style.display = "none";
 }
